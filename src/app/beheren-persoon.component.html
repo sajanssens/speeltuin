@@ -1,0 +1,47 @@
+<row>
+    <col2></col2>
+    <col8>
+        <box color="white">
+            <box-header>
+                <h3 *ngIf="isAdding()">Toevoegen persoon</h3>
+                <h3 *ngIf="!isAdding()">Wijzigen persoon</h3>
+            </box-header>
+            <form (ngSubmit)="onSubmit()">
+                <h5>Personalia</h5>
+                <row>
+                    <col6>
+                        <in [(ngModel)]="persoon.titel" label="Titel" name="titel"></in>
+                        <in [(ngModel)]="persoon.voorletters" label="Voorletters" name="voorletters"></in>
+                        <in [(ngModel)]="persoon.voornaam" label="Voornaam" name="voornaam" isRequired></in>
+                        <in [(ngModel)]="persoon.voorvoegsel" label="Voorvoegsel" name="voorvoegsel"></in>
+                        <in [(ngModel)]="persoon.achternaam" label="Achternaam" name="achternaam" isRequired></in>
+                    </col6>
+                    <col6>
+                        <cal [(ngModel)]="persoon.geboortedatum" label="Geboortedatum" name="geboortedatum"></cal>
+                        <in [(ngModel)]="persoon.iban" label="Iban" name="iban"></in>
+                        <in [(ngModel)]="persoon.email" label="Email-adres" name="email" iconRight="at" type="email"></in>
+                        <in [(ngModel)]="persoon.geslacht" label="Geslacht" name="geslacht"></in>
+                        <!--<radio [(ngModel)]="persoon.geslacht" label="Geslacht" [values]="['Mannelijk','Vrouwelijk','Onbekend']" id="geslacht"></radio>-->
+                    </col6>
+                </row>
+                <h5>Woonadres</h5>
+                <row>
+                    <col6>
+                        <in [(ngModel)]="persoon.woonadres.straat" label="Straat" name="straat"></in>
+                        <in [(ngModel)]="persoon.woonadres.postcode" label="Postcode" name="postcode" isRequired></in>
+                        <in [(ngModel)]="persoon.woonadres.plaats" label="Plaats" name="plaats"></in>
+                    </col6>
+                    <col6>
+                        <in [(ngModel)]="persoon.woonadres.huisnummer" label="Huisnummer" name="huisnummer" isRequired></in>
+                        <in [(ngModel)]="persoon.woonadres.toevoeging" label="Toevoeging" name="toevoeging"></in>                            
+                    </col6>
+                </row>                
+                <btn-group>
+                    <btn-save></btn-save>
+                    <btn-cancel></btn-cancel>
+                </btn-group>
+            </form>
+        </box>
+    </col8>
+    <col2></col2>
+</row>
