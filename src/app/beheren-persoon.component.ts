@@ -1,5 +1,10 @@
-import { Greeter } from './greeter';
-import { Person } from './person';
+import { Person2Input } from './person2input';
+import { Person1 } from './person1';
+import { Person2 } from './person2';
+import { Person3 } from './person3';
+import { Person3Input } from './person3input';
+
+// import { Greeter } from './greeter';
 import { MapUtils } from './domain/objects/maputils';
 import { IBAN } from './domain/values/iban';
 import { Persoon } from './domain/objects/persoon';
@@ -37,28 +42,37 @@ export class BeherenPersoonComponent extends BaseComponent implements OnInit {
         // console.log('g.greeting=' + g.greeting);
         // console.log('g.greet()=' + g.greet());
 
-        let p: Person = MapUtils.deserialize(Person, {  
-            "voornaam":"Mark",
-            "surname":"Galea",
-            "age":30,
-            "bank":"1234",
+        let json = {
+            "voornaam": "Mark",
+            "surname": "Galea",
+            "age": 30,
+            "bank": "1234",
             "address":
-                // [  
-                {  
-                    "first-line":"Some where",
-                    "second-line":"Over Here",
-                    "city":"In This City"
+            // [
+            {
+                "first-line": "Some where",
+                "second-line": "Over Here",
+                "city": "In This City"
                 // },
                 // {  
-                    // "first-line":"Some where2",
-                    // "second-line":"Over Here2",
-                    // "city":"In This City2"
-                }
+                // "first-line":"Some where2",
+                // "second-line":"Over Here2",
+                // "city":"In This City2"
+            }
             // ]
-        })
+        }
 
-        console.log('p=' + JSON.stringify(p));
+        let p1: Person1 = MapUtils.deserialize(Person1, json);
+        console.log('p1=' + JSON.stringify(p1));
+        console.log('p1.bank.isValid=' + p1.bank.isValid());
 
+        let p2: Person2 = Person2.of(json);
+        console.log('p2=' + JSON.stringify(p2));
+
+        // let pi = MapUtils.deserialize(Person3Input, json);
+        // console.log('pi=' + JSON.stringify(pi));
+        let p3: Person3 = Person3.of(MapUtils.deserialize(Person3Input, json));
+        console.log('p3=' + JSON.stringify(p3));
     }
 
     private initPersoon(): void {
@@ -80,12 +94,12 @@ export class BeherenPersoonComponent extends BaseComponent implements OnInit {
 
     private getPersoon(): void {
         this.beherenPersoonService.get(this.persoonId)
-            .then((p) => {
-                console.log('p instanceof Persoon: ' + (p instanceof Persoon));
-                console.log('p instanceof Object: ' + (p instanceof Object));
-                console.log('beherenPersoonService.get returned: ' + JSON.stringify(p));
-                MapUtils.deserialize(Persoon, p);
-
+            .then((json) => {
+                console.log('p instanceof Persoon: ' + (json instanceof Persoon));
+                console.log('p instanceof Object: ' + (json instanceof Object));
+                console.log('beherenPersoonService.get returned: ' + JSON.stringify(json));
+                MapUtils.deserialize(Persoon, json);
+                let p2: Person2 = Person2.of(json);
 
                 // this.persoon.ibanVal = IBAN.of(p.iban);                
                 // console.log('this.persoon.iban.isValid()=' + this.persoon.ibanVal.isValid());;
